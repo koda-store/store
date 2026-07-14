@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
   const [error, setError] = useState(null);
 
   const fetchCart = useCallback(async () => {
-    const token = localStorage.getItem("Store-token");
+    const token = localStorage.getItem("dashboard-token");
     if (!token) {
       setLoading(false);
       return;
