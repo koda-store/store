@@ -10,7 +10,7 @@ const Home = () => {
 
     return (
         <>
-            <section className="max-md:py-30 py-15 md:min-h-screen bg-[#493fd7] text-white flex items-center">
+            <section className="max-md:pb-30 max-md:pt-40 pt-35 pb-15 md:min-h-screen bg-[#493fd7] text-white flex items-center">
                 <Hero />
             </section>
             <section className="py-16">

@@ -2,6 +2,7 @@ import { Heart, ShoppingCart, Star } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const Card = ({ product }) => {
+    console.log(product)
     return (
         <>
             <div className="bg-white cursor-pointer relative rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group">
@@ -11,7 +12,7 @@ const Card = ({ product }) => {
                         <img
                             src={product.images[0].url}
                             alt={product.name}
-                            className="w-full h-52 rounded-t-xl object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-44 rounded-t-xl object-cover group-hover:scale-105 transition-transform duration-300"
                         />
 
                     </div>
@@ -47,12 +48,27 @@ const Card = ({ product }) => {
                             {product.name}
                         </h3>
 
-                        <div className="flex items-center gap-1 mt-2">
-                            <Star
-                                size={18}
-                                className="fill-yellow-400 text-yellow-400"
-                            />
-                            <span className="text-sm text-gray-500">(0)</span>
+                        <div className="mt-3 flex items-center gap-2">
+                            <div className="flex">
+                                {[...Array(5)].map((_, index) => (
+                                    <Star
+                                        key={index}
+                                        size={16}
+                                        className={`${index < Math.round(product.averageRating)
+                                                ? "fill-yellow-400 text-yellow-400"
+                                                : "fill-gray-300 text-gray-300"
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+
+                            <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                                {product.averageRating.toFixed(1)}
+                            </span>
+
+                            <span className="text-sm text-gray-500">
+                                ({product.numReviews} reviews)
+                            </span>
                         </div>
 
                         <div className="flex items-center gap-3 mt-3">

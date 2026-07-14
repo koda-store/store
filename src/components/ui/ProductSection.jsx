@@ -12,7 +12,7 @@ const ProductSection = ({ products }) => {
             <HeadSec Header={'Featured Products'} disc={'Handpicked just for you'} />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 {
-                    products.loading ? (
+                    products.loading || !products.products ? (
                         <SkeletonDemo />
                     ) : (
                         Array.from(products.products.products).slice(0, 4).map((product) => (
@@ -25,7 +25,7 @@ const ProductSection = ({ products }) => {
             </div>
             <div className="flex justify-end items-center mt-5">
                 <Link
-                    to="/all-product"
+                    to="/shop"
                     className="inline-flex mt-5 lowercase bg-white py-1.5 px-3 rounded-full shadow items-center gap-2 text-indigo-600 hover:text-indigo-700 transition-colors duration-200 group"
                 >
                     View All
