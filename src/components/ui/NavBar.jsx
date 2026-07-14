@@ -1,71 +1,131 @@
-import { Search, Moon, Heart, ShoppingCart } from "lucide-react";
+
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Search, Moon, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
+import { useCart } from "../../context/CartContext";
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { itemsCount } = useCart();
+
+  const linkClass = ({ isActive }) =>
+    `px-5 py-2 rounded-full text-sm font-medium transition-all ${
+      isActive
+        ? "bg-blue-600 text-white shadow-sm"
+        : "text-gray-600 hover:text-blue-600"
+    }`;
+
+  const mobileLinkClass = ({ isActive }) =>
+    `block px-4 py-2 rounded-lg text-sm font-medium transition ${
+      isActive
+        ? "bg-blue-600 text-white"
+        : "text-gray-700 hover:text-blue-600"
+    }`;
+
   return (
-    <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
-      {/* الجزء الشمال: اللوجو */}
-      <div className="flex items-center gap-2">
-        <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-          K
+
+    <nav className="fixed top-0 left-0 w-full px-4 sm:px-8 py-3 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100 z-50">
+      <div className="w-full flex items-center justify-between">
+       
+        <div className="flex items-center gap-2">
+          <div className="text-blue-800 flex items-center justify-center mr-1">
+            <span className="text-2xl font-black italic">K</span>
+          </div>
+          <div className="flex flex-col items-start justify-center leading-none">
+            <span className="font-extrabold text-gray-900 text-[15px] tracking-wide">KODA</span>
+            <span className="font-extrabold text-gray-900 text-[15px] tracking-wide mt-[2px]">STORE</span>
+            <span className="text-[7px] font-bold tracking-[0.2em] text-gray-400 mt-1">
+              ONLINE STORE
+            </span>
+          </div>
         </div>
-        <div className="leading-tight">
-          <h1 className="font-extrabold text-gray-900 text-lg">KODA STORE</h1>
-          <span className="text-[10px] tracking-widest text-gray-400">
-            ONLINE STORE
-          </span>
+
+        <div className="hidden md:flex items-center bg-gray-50 border border-gray-200 rounded-full p-1">
+          <NavLink to="/" end className={linkClass}>
+            Home
+          </NavLink>
+          <NavLink to="/shop" className={linkClass}>
+            Shop
+          </NavLink>
+          <NavLink to="/orders" className={linkClass}>
+            My Orders
+          </NavLink>
+          <NavLink to="/wishlist" className={linkClass}>
+            Wishlist
+          </NavLink>
         </div>
+
+        <div className="hidden md:flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <button className="text-gray-500 hover:text-blue-600 transition">
+              <Search size={19} />
+            </button>
+            <button className="text-gray-500 hover:text-blue-600 transition">
+              <Moon size={19} />
+            </button>
+            <button className="text-gray-500 hover:text-blue-600 transition">
+              <Heart size={19} />
+            </button>
+            <NavLink to="/cart" className="relative text-gray-500 hover:text-blue-600 transition">
+              <ShoppingCart size={19} />
+              {itemsCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                  {itemsCount > 9 ? "9+" : itemsCount}
+                </span>
+              )}
+            </NavLink>
+          </div>
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200 hover:bg-gray-100 transition">
+            <User size={16} className="text-gray-600" />
+            <span className="text-sm font-medium text-gray-700">CUSTOMER</span>
+          </button>
+        </div>
+
+        <button
+          className="md:hidden text-gray-700"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* الجزء النص: روابط التنقل */}
-      <div className="hidden md:flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-2 py-1.5">
-        <a
-          href="/"
-          className="px-4 py-1.5 rounded-full text-gray-700 hover:bg-white hover:shadow-sm transition text-sm font-medium"
-        >
-          Home
-        </a>
-        <a
-          href="/shop"
-          className="px-4 py-1.5 rounded-full text-gray-700 hover:bg-white hover:shadow-sm transition text-sm font-medium"
-        >
-          Shop
-        </a>
-        <a
-          href="/orders"
-          className="px-4 py-1.5 rounded-full text-gray-700 hover:bg-white hover:shadow-sm transition text-sm font-medium"
-        >
-          My Orders
-        </a>
-        <a
-          href="/wishlist"
-          className="px-4 py-1.5 rounded-full text-gray-700 hover:bg-white hover:shadow-sm transition text-sm font-medium"
-        >
-          Wishlist
-        </a>
-      </div>
+      {menuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-white mt-0 border-t border-gray-100 shadow-lg px-4 py-3 flex flex-col gap-1 z-50">
+          <NavLink to="/" end className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
+            Home
+          </NavLink>
+          <NavLink to="/shop" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
+            Shop
+          </NavLink>
+          <NavLink to="/orders" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
+            My Orders
+          </NavLink>
+          <NavLink to="/wishlist" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
+            Wishlist
+          </NavLink>
 
-      {/* الجزء اليمين: الأيقونات وزرار اللوجين */}
-      <div className="flex items-center gap-3">
-        <button className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-50 border border-gray-200 hover:bg-gray-100 transition">
-          <Search size={18} className="text-gray-600" />
-        </button>
-
-        <button className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-50 border border-gray-200 hover:bg-gray-100 transition">
-          <Moon size={18} className="text-gray-600" />
-        </button>
-
-        <button className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-50 border border-gray-200 hover:bg-gray-100 transition">
-          <Heart size={18} className="text-gray-600" />
-        </button>
-
-        <button className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-50 border border-gray-200 hover:bg-gray-100 transition">
-          <ShoppingCart size={18} className="text-gray-600" />
-        </button>
-
-        <button className="px-6 py-2 rounded-full bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-700 transition">
-          Login
-        </button>
-      </div>
+          <div className="flex items-center justify-between px-4 py-3 mt-2 border-t border-gray-100">
+            <div className="flex items-center gap-4">
+              <button className="text-gray-500"><Search size={19} /></button>
+              <button className="text-gray-500"><Moon size={19} /></button>
+              <button className="text-gray-500"><Heart size={19} /></button>
+              <NavLink to="/cart" className="relative text-gray-500" onClick={() => setMenuOpen(false)}>
+                <ShoppingCart size={19} />
+                {itemsCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                    {itemsCount > 9 ? "9+" : itemsCount}
+                  </span>
+                )}
+              </NavLink>
+            </div>
+            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200">
+              <User size={14} className="text-gray-600" />
+              <span className="text-xs font-medium text-gray-700">CUSTOMER</span>
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
