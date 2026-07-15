@@ -1,76 +1,41 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom'
+import Navbar from './components/ui/NavBar'
+import Home from './pages/Home'
+import Shop from './pages/Shop'
+import Product from './pages/Product'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import Navbar from "./components/ui/NavBar";
-import Footer from "./components/Footer";
-
-import { CartProvider } from "./context/CartContext";
-
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Products from "./pages/Products";
-import Carts from "./pages/Carts";
-import Checkout from "./pages/Checkout";
-import Wishlist from "./pages/Wishlist";
+import Carts from './pages/Carts'
+import Wishlist from './pages/Wishlist'
+import Login from './pages/Login'
+import Footer from './components/Footer'
 
 
 function App() {
   return (
-    <CartProvider>
-
-      <div className="
-        flex
-        flex-col
-        min-h-screen
-        bg-gray-50
-        dark:bg-gray-900
-      ">
-
+    <>
+      <ToastContainer position="bottom-left" />
+      <header className='fixed top-0 left-0 w-full z-50'>
         <Navbar />
-
-        <main className="flex-grow pt-12">
-
-          <Routes>
-
-            <Route path="/" element={<Home />} />
-
-            <Route path="/shop" element={<Products />} />
-
-            <Route path="/cart" element={<Carts />} />
-
-            <Route path="/checkout" element={<Checkout />} />
-
-            <Route path="/login" element={<Login />} />
-
-            <Route path="/wishlist" element={<Wishlist />} />
-
-            <Route
-              path="/orders"
-              element={
-                <div className="p-8">
-                  My Orders Page
-                </div>
-              }
-            />
-
-          </Routes>
-
-        </main>
-
+      </header>
+      <main className="bg-gray-100 dark:bg-gray-950">
+        <Routes>
+          <Route path={'/'} element={<Home />} />
+          <Route path={'/shop'} element={<Shop />} />
+          <Route path={'/shop/:category'} element={<Shop />} />
+          <Route path={'/product/:id'} element={<Product />} />
+          <Route path={'/shop/product/:id'} element={<Product />} />
+          <Route path={'/shop/:category/product/:id'} element={<Product />} />
+          <Route path={'/cart'} element={<Carts />} />
+          <Route path={'/wishlist'} element={<Wishlist />} />
+          <Route path={'/login'} element={<Login />} />
+        </Routes>
+      </main>
+      <footer>
         <Footer />
-
-      </div>
-
-
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-      />
-
-    </CartProvider>
-  );
+      </footer>
+    </>
+  )
 }
 
 
