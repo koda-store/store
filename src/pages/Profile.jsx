@@ -1,0 +1,24 @@
+import { useEffect, useState } from "react";
+import { api } from "../api/axios";
+import UserInfo from "../components/Profile/UserInfo"
+import AdressSection from "../components/Profile/AddressSection"
+import ChangePassword from "../components/Profile/ChangePassword"
+import LogoutButton from "../components/Profile/LogoutButton"
+
+
+function Profile() {
+  
+  return (
+
+    
+    <div className=" w-3/4 mx-auto  text-center p-5 mt-6  dark:bg-slate-900">
+      <h1 className="text-2xl tracking-[0.35em] uppercase font-bold text-blue-400 mb-6">My Profile</h1>
+<UserInfo />
+<AdressSection/>
+<ChangePassword />
+<LogoutButton/>
+    </div>
+  );
+}
+
+export default Profile;
