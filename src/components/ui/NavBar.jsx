@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Search, Moon, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
 import { useCart } from "../../context/CartContext";
@@ -26,6 +26,7 @@ export default function Navbar() {
 
     <nav className="fixed top-0 left-0 w-full px-4 sm:px-8 py-3 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100 z-50">
       <div className="w-full flex items-center justify-between">
+       
         <div className="flex items-center gap-2">
           <div className="text-blue-800 flex items-center justify-center mr-1">
             <span className="text-2xl font-black italic">K</span>
