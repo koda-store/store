@@ -6,29 +6,34 @@ import { CircleArrowRight } from "lucide-react"
 
 
 const ProductSection = ({ products }) => {
-    //console.log(products.products.products[0].images[0])
     return (
         <div className="container py-2.5">
-            <HeadSec Header={'Featured Products'} disc={'Handpicked just for you'} />
+            <HeadSec
+                Header={"Featured Products"}
+                disc={"Handpicked just for you"}
+            />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                {
-                    products.loading || !products.products ? (
-                        <SkeletonDemo />
-                    ) : (
-                        Array.from(products.products.products).slice(0, 4).map((product) => (
+                {products.loading || !products.products ? (
+                    <SkeletonDemo />
+                ) : (
+                    Array.from(products.products.products)
+                        .slice(0, 4)
+                        .map((product) => (
                             <div key={product._id}>
                                 <Card product={product} />
                             </div>
                         ))
-                    )
-                }
+                )}
             </div>
+
             <div className="flex justify-end items-center mt-5">
                 <Link
                     to="/shop"
-                    className="inline-flex mt-5 lowercase bg-white py-1.5 px-3 rounded-full shadow items-center gap-2 text-indigo-600 hover:text-indigo-700 transition-colors duration-200 group"
+                    className="group inline-flex items-center gap-2 mt-5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 shadow-sm hover:shadow-md text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-all duration-200"
                 >
                     View All
+
                     <CircleArrowRight
                         size={18}
                         className="transition-transform duration-200 group-hover:translate-x-1"

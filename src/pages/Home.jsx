@@ -19,10 +19,11 @@ const Home = () => {
             <section className="pt-16 pb-10">
                 <ProductSection products={products} />
             </section>
-            <section className="py-16 bg-white">
+            <section className="py-16 bg-white dark:bg-gray-950">
                 <Work />
             </section>
-            <section className="pb-10 bg-white px-5">
+
+            <section className="pb-10 px-5 bg-white dark:bg-gray-950">
                 <Subscripion />
             </section>
         </>
