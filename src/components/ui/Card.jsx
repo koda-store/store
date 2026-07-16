@@ -1,7 +1,63 @@
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import usewishLists from "../../redux/useWishList";
+import { useDispatch } from "react-redux";
+import { add_To_WishList } from "../../services/wishlistService";
+import { callWishList } from "../../redux/callApi";
 
 const Card = ({ product }) => {
+    const { addItem, actionLoading } = useCart();
+    const [selectProduct, setSelectProduct] = useState(null)
+    const addToCart = async (e) => {
+        try {
+            setSelectProduct(e._id)
+            const res = await addItem(e._id, 1);
+            res.success ? toast.success("Product added successfully!") : toast.error("Something went wrong!");
+        } catch (error) {
+            toast.error("Something went wrong!");
+        } finally {
+            setSelectProduct(null)
+        }
+    }
+
+    // wishlist
+    const wishlist = usewishLists();
+    const [Wloading, setLoading] = useState(null);
+    const [isWishlist, setIsWishList] = useState(false)
+
+    useEffect(() => {
+        if (!wishlist.loading) {
+            const exists = wishlist?.wishlist?.wishlist?.products?.some(
+                (item) => item._id === product._id
+            );
+
+            setIsWishList(exists);
+        }
+    }, [wishlist]);
+
+    const dispatch = useDispatch()
+    const add_To_wishList = async (product) => {
+        console.log(product._id)
+        try {
+            setLoading(product._id);
+
+            const res = await add_To_WishList(product._id);
+            if (res.success) {
+                toast.success("Added to wishlist");
+                await dispatch(callWishList());
+            } else {
+                toast.error("Something went wrong");
+            }
+        } catch (error) {
+            console.log(error.response)
+            toast.error("Something went wrong");
+        } finally {
+            setLoading(null);
+        }
+    };
     return (
         <div className="bg-white dark:bg-gray-900 cursor-pointer relative rounded-2xl shadow-md dark:shadow-black/30 overflow-hidden hover:shadow-xl transition-all duration-300 group border border-gray-100 dark:border-gray-800">
             {/* Image */}
@@ -20,11 +76,22 @@ const Card = ({ product }) => {
                 </span>
 
                 {/* Favorite */}
-                <button className="absolute cursor-pointer top-3 right-3 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow hover:bg-red-50 dark:hover:bg-gray-900 transition">
-                    <Heart
-                        size={20}
-                        className="text-gray-600 dark:text-gray-300"
-                    />
+                <button
+                    onClick={() => add_To_wishList(product)}
+                    disabled={isWishlist || Wloading === product._id}
+                    className="absolute cursor-pointer top-3 right-3 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow hover:bg-red-50 dark:hover:bg-gray-900 transition disabled:cursor-not-allowed"
+                >
+                    {Wloading === product._id ? (
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-red-500 border-t-transparent" />
+                    ) : (
+                        <Heart
+                            size={20}
+                            className={`transition-colors ${isWishlist
+                                    ? "fill-red-500 text-red-500"
+                                    : "text-gray-600 dark:text-gray-300 hover:text-red-500"
+                                }`}
+                        />
+                    )}
                 </button>
 
                 <span
@@ -56,8 +123,8 @@ const Card = ({ product }) => {
                                     key={index}
                                     size={16}
                                     className={`${index < Math.round(product.averageRating)
-                                            ? "fill-yellow-400 text-yellow-400"
-                                            : "fill-gray-300 dark:fill-gray-600 text-gray-300 dark:text-gray-600"
+                                        ? "fill-yellow-400 text-yellow-400"
+                                        : "fill-gray-300 dark:fill-gray-600 text-gray-300 dark:text-gray-600"
                                         }`}
                                 />
                             ))}
@@ -86,11 +153,22 @@ const Card = ({ product }) => {
                 </div>
 
                 <button
-                    className={`${product.stock === 0 ? "pointer-events-none opacity-30" : ""
+                    onClick={() => addToCart(product)}
+                    disabled={actionLoading && selectProduct === product._id}
+                    className={`${product.stock === 0 || actionLoading && selectProduct === product._id ? "pointer-events-none opacity-30" : ""
                         } w-full cursor-pointer flex justify-center items-center gap-3 mt-5 bg-indigo-600 text-white py-2 rounded-xl font-medium hover:bg-indigo-700 transition`}
                 >
-                    <ShoppingCart size={18} />
-                    Add to Cart
+                    {actionLoading && selectProduct === product._id ? (
+                        <>
+                            <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                            Adding...
+                        </>
+                    ) : (
+                        <>
+                            <ShoppingCart size={18} />
+                            Add To Cart
+                        </>
+                    )}
                 </button>
             </div>
         </div>

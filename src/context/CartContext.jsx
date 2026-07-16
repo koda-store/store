@@ -38,6 +38,7 @@ export function CartProvider({ children }) {
     setError(null);
     try {
       const res = await api.post("/carts/items", { productId, quantity });
+      localStorage.setItem('Cart', JSON.stringify(res.data))
       setCart(res.data);
       return { success: true };
     } catch (err) {
@@ -56,6 +57,7 @@ export function CartProvider({ children }) {
     setError(null);
     try {
       const res = await api.patch("/carts/items", { productId, quantity });
+      localStorage.setItem('Cart', JSON.stringify(res.data))
       setCart(res.data);
       return { success: true };
     } catch (err) {
@@ -73,6 +75,7 @@ export function CartProvider({ children }) {
     setError(null);
     try {
       const res = await api.delete(`/carts/items/${productId}`);
+      localStorage.setItem('Cart', JSON.stringify(res.data))
       setCart(res.data);
       return { success: true };
     } catch (err) {
@@ -90,6 +93,7 @@ export function CartProvider({ children }) {
     setError(null);
     try {
       const res = await api.post("/carts/coupon", { code });
+      localStorage.setItem('Cart', JSON.stringify(res.data))
       setCart(res.data);
       return { success: true };
     } catch (err) {
@@ -107,6 +111,7 @@ export function CartProvider({ children }) {
     setError(null);
     try {
       const res = await api.delete("/carts/coupon");
+      localStorage.setItem('Cart', JSON.stringify(res.data))
       setCart(res.data);
       return { success: true };
     } catch (err) {
@@ -124,6 +129,7 @@ export function CartProvider({ children }) {
     setError(null);
     try {
       const res = await api.delete("/carts/clear");
+      localStorage.setItem('Cart',JSON.stringify(res.data))
       setCart(res.data);
       return { success: true };
     } catch (err) {
@@ -136,7 +142,7 @@ export function CartProvider({ children }) {
     }
   }, []);
 
-  const items = cart?.items || [];
+  const items = localStorage.getItem('Cart') ? JSON.parse(localStorage.getItem('Cart'))?.items : cart?.items || [];
   const itemsCount = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
 
   const value = {

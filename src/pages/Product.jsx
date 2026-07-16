@@ -5,6 +5,17 @@ import { Heart, LoaderCircle, Minus, Plus, ShoppingCart, Star, Trash, Trash2Icon
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Skeleton from 'react-loading-skeleton'
+import { useCart } from '../context/CartContext'
+import {
+    getWishlist,
+    removeFromWishlist,
+    clearWishlist,
+    addToCart,
+    add_To_WishList,
+} from "../services/wishlistService";
+import usewishLists from '../redux/useWishList'
+import { callWishList } from '../redux/callApi'
+import { useDispatch } from 'react-redux'
 
 const Product = () => {
     const [amount, setAmount] = useState(1);
@@ -73,6 +84,48 @@ const Product = () => {
             setLoadingReviewDelete(false)
         }
     }
+    // add to cart
+    const { addItem, actionLoading } = useCart();
+    const addToCart = async (e) => {
+        const res = await addItem(e._id, amount);
+        res.success ? toast.success("Product added successfully!") : toast.error("Something went wrong!");
+    }
+
+    // Wishlist
+    const wishlist = usewishLists();
+    const [Wloading, setLoading] = useState(false);
+    const [isWishlist, setIsWishList] = useState(false)
+
+    useEffect(() => {
+        if (!wishlist.loading) {
+            const exists = wishlist?.wishlist?.wishlist?.products?.some(
+                (item) => item._id === currentProduct._id
+            );
+
+            setIsWishList(exists);
+        }
+    }, [wishlist, currentProduct]);
+
+    const dispatch = useDispatch()
+    const add_To_wishList = async (product) => {
+        try {
+            setLoading(true);
+
+            const res = await add_To_WishList(product._id);
+
+            if (res.success) {
+                toast.success("Added to wishlist");
+                await dispatch(callWishList());
+            } else {
+                toast.error(res.message || "Something went wrong");
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Something went wrong");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <section className="pt-30 pb-10 relative bg-white dark:bg-gray-950 transition">
@@ -125,11 +178,22 @@ const Product = () => {
                             </div>
 
                             <div className="flex flex-col gap-5 relative">
-                                <button className="group rounded-lg absolute top-0 right-3 bg-gray-900/5 dark:bg-white/10 cursor-pointer p-2.5 transition opacity-55 hover:opacity-100">
-                                    <Heart
-                                        size={20}
-                                        className="text-gray-700 dark:text-gray-300 group-hover:text-red-500 transition-colors"
-                                    />
+                                <button
+                                    onClick={() => add_To_wishList(currentProduct)}
+                                    disabled={Wloading || isWishlist}
+                                    className="group cursor-pointer rounded-lg absolute top-0 right-3 bg-gray-900/5 dark:bg-white/10 p-2.5 transition  hover:opacity-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {Wloading ? (
+                                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-red-500 border-t-transparent" />
+                                    ) : (
+                                        <Heart
+                                            size={20}
+                                            className={`${isWishlist
+                                                ? "fill-red-500 text-red-500"
+                                                : "text-gray-700 dark:text-gray-300"
+                                                }`}
+                                        />
+                                    )}
                                 </button>
 
                                 <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">
@@ -201,9 +265,22 @@ const Product = () => {
                                     </div>
 
                                     <div className="flex items-center mt-5 gap-3">
-                                        <button className="flex items-center cursor-pointer gap-2 rounded-lg bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700">
-                                            <ShoppingCart size={18} />
-                                            Add To Cart
+                                        <button
+                                            onClick={() => addToCart(currentProduct)}
+                                            disabled={actionLoading}
+                                            className="flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+                                        >
+                                            {actionLoading ? (
+                                                <>
+                                                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                                                    Adding...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <ShoppingCart size={18} />
+                                                    Add To Cart
+                                                </>
+                                            )}
                                         </button>
                                     </div>
                                 </div>
