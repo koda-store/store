@@ -5,6 +5,7 @@ import { ShoppingCart, Minus, Plus, Trash2, Tag, X, ArrowLeft } from "lucide-rea
 import { useCart } from "../context/CartContext";
 
 function Carts() {
+  const [id, setId] = useState(null)
   const {
     items,
     cart,
@@ -42,7 +43,7 @@ function Carts() {
 
   if (!items || items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[45vh] mt-12 md:mt-16 text-center px-4 max-w-md mx-auto">
+      <div className="flex flex-col items-center justify-center min-h-[45vh] mt-17 text-center px-4 max-w-md mx-auto">
         <div className="mb-3">
           <ShoppingCart className="w-12 h-12 text-blue-600" strokeWidth={1.2} />
         </div>
@@ -69,10 +70,10 @@ function Carts() {
   const finalTotal = (subtotal + shipping + tax - discount).toFixed(0);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-6 pb-12">
-      
+    <div className="max-w-6xl mx-auto px-4 pt-6 pb-12 mt-17">
+
       <h1 className="text-base md:text-lg font-bold text-gray-800 dark:text-gray-100 mb-5 tracking-tight text-left">
-         Shopping Cart
+        Shopping Cart
       </h1>
 
       {error && (
@@ -85,12 +86,12 @@ function Carts() {
       )}
 
       <div className="flex flex-col lg:flex-row items-start gap-8">
-        
+
         <div className="flex-1 w-full flex flex-col gap-6">
-          
+
           <div className="flex flex-col gap-4">
             {items.map((item) => {
-              const targetProductId = item.product; 
+              const targetProductId = item.product;
 
               return (
                 <div
@@ -127,7 +128,10 @@ function Carts() {
                         {item.quantity}
                       </span>
                       <button
-                        onClick={() => updateQuantity(targetProductId, item.quantity + 1)}
+                        onClick={() => {
+                          setId(targetProductId)
+                          updateQuantity(targetProductId, item.quantity + 1)
+                        }}
                         disabled={actionLoading}
                         className="px-2.5 py-1 disabled:opacity-30 text-gray-500 hover:bg-gray-100 rounded-r-lg transition"
                       >
@@ -138,12 +142,19 @@ function Carts() {
 
                   <div className="text-right flex flex-col items-end gap-4 min-w-[80px]">
                     <button
-                      onClick={() => removeItem(targetProductId)}
+                      onClick={() => {
+                        setId(targetProductId)
+                        removeItem(targetProductId)
+                      }}
                       disabled={actionLoading}
-                      className="text-gray-400 hover:text-red-500 p-1 rounded-md hover:bg-gray-50 transition opacity-80 group-hover:opacity-100"
+                      className="text-gray-400 cursor-pointer hover:text-red-500 p-1 rounded-md hover:bg-gray-50 transition opacity-80 group-hover:opacity-100"
                       aria-label="Remove item"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      {actionLoading && id === targetProductId ? (
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-400 border-t-transparent" />
+                      ) : (
+                        <Trash2 className="w-4 h-4" />
+                      )}
                     </button>
                     <span className="font-bold text-sm text-gray-800 dark:text-gray-100">
                       EGP {item.price * item.quantity}
@@ -159,7 +170,7 @@ function Carts() {
               <Tag className="w-4 h-4 text-gray-400" />
               Coupon Code
             </span>
-            
+
             {cart?.coupon ? (
               <div className="flex items-center justify-between bg-blue-50/60 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 px-4 py-2.5 rounded-lg text-xs font-semibold">
                 <span className="flex items-center gap-1.5">
@@ -208,12 +219,12 @@ function Carts() {
               <span>Subtotal</span>
               <span className="font-bold text-gray-700 dark:text-gray-200">EGP {subtotal}</span>
             </div>
-            
+
             <div className="flex justify-between text-gray-500 dark:text-gray-400 font-medium">
               <span>Shipping</span>
               <span className="font-bold text-gray-700 dark:text-gray-200">EGP {shipping}</span>
             </div>
-            
+
             <p className="text-[10px] text-gray-400 dark:text-gray-500 -mt-2 leading-tight">
               Free shipping on orders over EGP 1,000
             </p>
@@ -241,9 +252,9 @@ function Carts() {
               to="/checkout"
               className="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold py-3 rounded-lg transition-all duration-200 text-center text-xs tracking-wide shadow-sm block"
             >
-              Proceed to Checkout 
+              Proceed to Checkout
             </Link>
-            
+
             <Link
               to="/shop"
               className="w-full text-center text-xs font-bold text-blue-600 hover:text-blue-700 transition py-1.5"

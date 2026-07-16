@@ -6,13 +6,15 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("dashboard-token");
+
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
+
 });
 
 api.interceptors.response.use(

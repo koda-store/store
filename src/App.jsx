@@ -9,7 +9,10 @@ import Carts from './pages/Carts'
 import Wishlist from './pages/Wishlist'
 import Login from './pages/Login'
 import Footer from './components/Footer'
+
 import Profile from'./pages/Profile'
+
+import NotFound from "./pages/NotFound";
 
 
 function App() {
@@ -32,7 +35,9 @@ function App() {
           <Route path={'/wishlist'} element={<Wishlist />} />
           <Route path={'/login'} element={<Login />} />
 <Route path="/profile" element={ localStorage.getItem("dashboard-token") ? <Profile /> : <Navigate to="/login" replace />}/>      
-  </Routes>
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
       <footer>
         <Footer />
