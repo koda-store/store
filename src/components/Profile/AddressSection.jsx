@@ -73,7 +73,7 @@ setAddress({
     "w-full text-sm rounded-lg border border-slate-400 px-4 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400";
   return (
     
-    <div className="w-full my-2  bg-white rounded-xl border border-slate-200 dark:bg-slate-800 dark:border-slate-600 p-6 shadow-xl  dark:text-white">
+    <div className="w-full my-8  bg-white rounded-xl border border-slate-200 dark:bg-slate-800 dark:border-slate-600 p-6 shadow-xl  dark:text-white">
       <div className="mb-4 flex items-center gap-2">
         <MdLocationOn className="text-lg text-red-500" />
         <h2 className="text-lg font-semibold text-black dark:text-white">Addresses</h2>

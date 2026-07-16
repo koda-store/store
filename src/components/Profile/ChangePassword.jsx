@@ -70,7 +70,7 @@ return(
  <div className="mt-6 h-full bg-white w-full   rounded-xl border border-slate-200  p-5 shadow-xl dark:border-slate-700 dark:bg-slate-800">
   <div className="flex items-center gap-2 py-2 ">
     <FaLock className="text-lg text-red-500" />
-   <h1 className=" text-gray-800 dark:text-white">Change Password</h1>
+   <h1 className="text-lg font-semibold text-black dark:text-white">Change Password</h1>
  </div>
 
  {!showChangePassword && (
