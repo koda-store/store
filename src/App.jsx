@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import Navbar from './components/ui/NavBar'
 import Home from './pages/Home'
 import Shop from './pages/Shop'
@@ -9,7 +9,7 @@ import Carts from './pages/Carts'
 import Wishlist from './pages/Wishlist'
 import Login from './pages/Login'
 import Footer from './components/Footer'
-
+import Profile from'./pages/Profile'
 
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
           <Route path={'/cart'} element={<Carts />} />
           <Route path={'/wishlist'} element={<Wishlist />} />
           <Route path={'/login'} element={<Login />} />
+          <Route path="/profile" element={localStorage.getItem("dashboard-token")  ? <Profile />: <Navigate to="/login" replace />}/>
         </Routes>
       </main>
       <footer>

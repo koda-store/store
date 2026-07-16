@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { api } from "../api/axios";
 import UserInfo from "../components/Profile/UserInfo"
-import AdressSection from "../components/Profile/AddressSection"
+import AddressSection from "../components/Profile/AddressSection"
 import ChangePassword from "../components/Profile/ChangePassword"
 import LogoutButton from "../components/Profile/LogoutButton"
 
