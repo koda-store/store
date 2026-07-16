@@ -16,7 +16,7 @@ function App() {
   return (
     <>
 
-      <ToastContainer position="bottom-left" />
+      <ToastContainer position="top-center" />
       <header className='fixed top-0 left-0 w-full z-50'>
         <Navbar />
       </header>
@@ -31,8 +31,8 @@ function App() {
           <Route path={'/cart'} element={<Carts />} />
           <Route path={'/wishlist'} element={<Wishlist />} />
           <Route path={'/login'} element={<Login />} />
-          <Route path="/profile" element={localStorage.getItem("dashboard-token")  ? <Profile />: <Navigate to="/login" replace />}/>
-        </Routes>
+<Route path="/profile" element={ localStorage.getItem("dashboard-token") ? <Profile /> : <Navigate to="/login" replace />}/>      
+  </Routes>
       </main>
       <footer>
         <Footer />
