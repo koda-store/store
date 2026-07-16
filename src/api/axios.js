@@ -13,7 +13,8 @@ export const api = axios.create({
 
 api.interceptors.request.use((config) => {
 
-  const token = localStorage.getItem("dashboard-token");
+  // const token = localStorage.getItem("dashboard-token");
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDEyNjk3NSwiZXhwIjoxNzg0NTU4OTc1fQ._XsSsCKnrKggD_7Y71EdHk84zfmBGwvxJknVm0ClFdk";
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
