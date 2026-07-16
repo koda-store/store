@@ -12,7 +12,7 @@ function Profile() {
     <div className=" w-3/4 mx-auto  text-center p-5 mt-6  dark:bg-slate-900">
       <h1 className="text-2xl tracking-[0.35em] uppercase font-bold text-blue-400 mb-6">My Profile</h1>
 <UserInfo />
-<AdressSection/>
+<AddressSection/>
 <ChangePassword />
 <LogoutButton/>
     </div>
