@@ -8,9 +8,11 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("dashboard-token");
+  const token = localStorage.getItem("dashboard-token") ||
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
+    // config.headers.Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDE5ODk4NSwiZXhwIjoxNzg0NjMwOTg1fQ.HraUis0K9FZA5z6PWHifJ8jtvzkrvlIBY5IkH6YBI5Q";
   }
   return config;
 });
@@ -18,7 +20,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // console.log(localStorage.getItem("dashboard-token"));
+    if (error.response?.status === 401) {    
       localStorage.removeItem("dashboard-token");
       window.location.href = "/login";
     }

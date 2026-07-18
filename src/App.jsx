@@ -10,6 +10,9 @@ import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Carts from "./pages/Carts";
 import Checkout from "./pages/Checkout"; 
+import Orders from "./pages/Orders";
+import OrderDetails from "./pages/OrderDetails";
+import OrderSuccess from "./pages/OrderSuccess";
 import Footer from "./components/Footer"; 
 
 function App() {
@@ -28,7 +31,9 @@ function App() {
                 <Route path="/cart" element={<Carts />} />
                 <Route path="/checkout" element={<Checkout />} /> 
                 <Route path="/login" element={<Login />} />
-                <Route path="/orders" element={<div className="p-8">My Orders Page </div>} />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/orders/:id" element={<OrderDetails />} />
+                <Route path="/ordersuccess" element={<OrderSuccess /> } />
                 <Route path="/wishlist" element={<div className="p-8">Wishlist Page </div>} />
               </Routes>
             </main>
