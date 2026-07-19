@@ -84,7 +84,7 @@ const inputStyle ="w-full text-sm rounded-lg border border-slate-400 px-4 py-1.5
     
     <div className="bg-white w-full  rounded-2xl shadow-lg p-8 dark:bg-slate-800 border border-white dark:border-slate-600">
                   {/* User Info */}
-   <div className="flex items-center text-left gap-5">
+   <div className="flex flex-col sm:flex-row items-left sm:items-left text-left sm:text-left gap-5">
         <img
 src={user?.avatar } alt={user?.username}
     className="w-22 h-22 rounded-full object-cover shadow-xl border-2 border-blue-200 "/>

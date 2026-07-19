@@ -8,7 +8,7 @@ function Profile() {
   
   return (
     <div className="lg:w-3/4 mx-auto md:p-6 p-6  text-center  my-2  dark:bg-slate-900">
-      <h1 className="text-2xl tracking-[0.25em] uppercase font-bold text-blue-400 m-10 pt-5   ">My Profile</h1>
+      <h1 className="text-lg sm:text-xl md:text-2xl tracking-[0.25em] uppercase font-bold text-blue-400 m-10 pt-5  ">My Profile</h1>
 <UserInfo />
 <AddressSection/>
 <ChangePassword />
