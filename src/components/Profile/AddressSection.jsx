@@ -6,6 +6,7 @@ import { MdLocationOn } from "react-icons/md";
 import { toast } from "react-toastify";
 
 function Addresses() {
+  const [user, setUser] = useState(null);
   const [addresses, setAddresses] = useState([]);
 
   const [address, setAddress] = useState({
@@ -23,9 +24,9 @@ function Addresses() {
 
   const getAddresses = async () => {
     try {
-      const res = await api.get("/auth/me");
- console.log(res.data.user.addresses);
+     const res = await api.get("/auth/me");
 
+setUser(res.data.user);
 setAddresses(res.data.user.addresses || []);
 } catch (err) {
  toast.error(err.response?.data?.message || "Something went wrong.");
@@ -33,11 +34,13 @@ setAddresses(res.data.user.addresses || []);
   };
 
   const handleChange = (e) => {
+
  setAddress({...address,
    [e.target.name]: e.target.value, });
   };
 
  const handleAddAddress = async () => {
+  if (!user) return;
  const fields = {
   country: "Country",
  city: "City",
@@ -51,7 +54,7 @@ setAddresses(res.data.user.addresses || []);
       }
     }
     try {
-    await api.get('/auth/me', address);/////////////تغير ال api !!!!!!!??
+await api.patch(`/users/${user._id}`, {addresses: [...addresses, address],});
      await getAddresses();
 
       toast.success("Address added successfully!");
@@ -64,7 +67,6 @@ setAddress({
  postalCode: "",
    defaultAddress: false,});
     } catch (err) {
-      console.log(err.response?.data);
       toast.error(err.response?.data?.message || "Something went wrong.");
     }
   };
