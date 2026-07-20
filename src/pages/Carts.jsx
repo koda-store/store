@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ShoppingCart, Minus, Plus, Trash2, Tag, X, ArrowLeft } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
-function Carts() {
+function Cart() {
   const [id, setId] = useState(null)
   const {
     items,
@@ -269,5 +269,5 @@ function Carts() {
   );
 }
 
-export default Carts;
+export default Cart;
 
