@@ -1,3 +1,18 @@
+import { Route, Routes, Navigate } from 'react-router-dom'
+import Navbar from './components/ui/NavBar'
+import Home from './pages/Home'
+import Shop from './pages/Shop'
+import Product from './pages/Product'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Carts from './pages/Carts'
+import Wishlist from './pages/Wishlist'
+import Login from './pages/Login'
+import Footer from './components/Footer'
+
+import Profile from'./pages/Profile'
+
+import NotFound from "./pages/NotFound";
 
 import React from "react";
 import { ToastContainer } from 'react-toastify';
@@ -49,4 +64,7 @@ function App() {
   )
 }
 
+
 export default App;
+
+
