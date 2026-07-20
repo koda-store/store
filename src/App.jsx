@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import Navbar from './components/ui/NavBar'
 import Home from './pages/Home'
 import Shop from './pages/Shop'
@@ -9,13 +9,17 @@ import Carts from './pages/Carts'
 import Wishlist from './pages/Wishlist'
 import Login from './pages/Login'
 import Footer from './components/Footer'
+
+import Profile from'./pages/Profile'
+
 import NotFound from "./pages/NotFound";
 
 
 function App() {
   return (
     <>
-      <ToastContainer position="bottom-left" />
+
+      <ToastContainer position="top-center" />
       <header className='fixed top-0 left-0 w-full z-50'>
         <Navbar />
       </header>
@@ -30,15 +34,20 @@ function App() {
           <Route path={'/cart'} element={<Carts />} />
           <Route path={'/wishlist'} element={<Wishlist />} />
           <Route path={'/login'} element={<Login />} />
+<Route path="/profile" element={ localStorage.getItem("dashboard-token") ? <Profile /> : <Navigate to="/login" replace />}/>      
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <footer>
         <Footer />
       </footer>
+
     </>
   )
 }
 
 
 export default App;
+
+
