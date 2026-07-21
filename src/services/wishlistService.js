@@ -34,16 +34,16 @@ export const addToCart = async (productId) => {
   return response.data;
 };
 export const add_To_WishList = async (productId) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIwODA5NSwiZXhwIjoxNzg0NjQwMDk1fQ.SVGnyiX8pl0TRavW6B5D8V4T8bJhyFY9zLV_0tt1t7o";
-
-    const res = await axios.post(
-      `https://e-commerce-api-3wara.vercel.app/wishlists/add/${productId}`,
-      null,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return res.data
+  const token = localStorage.getItem("dashboard-token") ||
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
+  const res = await axios.post(
+    `https://e-commerce-api-3wara.vercel.app/wishlists/add/${productId}`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return res.data
 }

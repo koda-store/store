@@ -12,6 +12,8 @@ import OrderDetails from "../pages/OrderDetails";
 import OrderSuccess from "../pages/OrderSuccess";
 import Wishlist from "../pages/Wishlist";
 import NotFound from "../pages/NotFound";
+import Shop from '../pages/Shop'
+import Product from '../pages/Product'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,23 @@ const router = createBrowserRouter([
       },
       {
         path: "shop",
-        element: <Products />,
+        element: <Shop />,
+      },
+      {
+        path: "shop/:category",
+        element: <Shop />,
+      },
+      {
+        path: "shop/:category/product/:id",
+        element: <Product />,
+      },
+      {
+        path: "shop/product/:id",
+        element: <Product />,
+      },
+      {
+        path: "product/:id",
+        element: <Product />,
       },
       {
         path: "cart",
@@ -58,10 +76,6 @@ const router = createBrowserRouter([
         path: "*",
         element: <NotFound />,
       },
-      {
-  path: "shop/:category",
-  element: <Products />
-}
     ],
   },
 ]);

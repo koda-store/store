@@ -37,7 +37,8 @@ const Product = () => {
         e.preventDefault();
         if (rate !== 0 && Review.trim() !== "") {
             try {
-                const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDEyNjk3NSwiZXhwIjoxNzg0NTU4OTc1fQ._XsSsCKnrKggD_7Y71EdHk84zfmBGwvxJknVm0ClFdk";
+                const token = localStorage.getItem("dashboard-token") ||
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
                 setLoadingReview(true)
                 const res = await axios.post(
                     `https://e-commerce-api-3wara.vercel.app/products/${currentProduct._id}/reviews`,
@@ -68,8 +69,9 @@ const Product = () => {
     const deleteReview = async (productId, reviewId) => {
         try {
             setLoadingReviewDelete(true)
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDEyNjk3NSwiZXhwIjoxNzg0NTU4OTc1fQ._XsSsCKnrKggD_7Y71EdHk84zfmBGwvxJknVm0ClFdk";
 
+             const token = localStorage.getItem("dashboard-token") ||
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
             const res = await axios.delete(`https://e-commerce-api-3wara.vercel.app/products/${productId}/reviews/${reviewId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -128,7 +130,7 @@ const Product = () => {
 
     return (
         <>
-            <section className="pt-30 pb-10 relative bg-white dark:bg-gray-950 transition">
+            <section className="pt-15 pb-10 relative bg-white dark:bg-gray-950 transition">
                 <div className='container'>
                     {loading ? (
                         <div className='grid lg:grid-cols-2 gap-5'>
@@ -360,6 +362,8 @@ const Product = () => {
                                 )}
                             </button>
                         </div>
+
+
 
                         <div className="mt-8">
                             {user_reviews?.map((review) => (
