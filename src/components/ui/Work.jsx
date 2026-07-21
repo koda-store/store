@@ -26,7 +26,7 @@ const Work = () => {
                 {works.map((w, index) => (
                     <div
                         key={index}
-                        className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-lg transition-all duration-300"
+                        className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-lg transition"
                     >
                         <div className="flex flex-col items-center text-center py-10 px-8">
                             <div className="my-4 rounded-xl bg-blue-100 dark:bg-blue-500/20 p-4 text-blue-700 dark:text-blue-400">

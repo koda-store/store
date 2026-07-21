@@ -78,7 +78,7 @@ const Shop = () => {
     const [openFilter, setOpenFilter] = useState(false)
     return (
         <>
-            <section className="pt-30 pb-10 relative bg-white dark:bg-gray-950">
+            <section className="pt-15 pb-10 relative bg-gray-50 dark:bg-gray-950">
                 <div className='container'>
                     <div className='flex items-center justify-start gap-2.5'>
                         <div className='md:hidden'>

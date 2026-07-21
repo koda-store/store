@@ -55,7 +55,7 @@ function Cart() {
         </p>
         <Link
           to="/shop"
-          className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-6 py-2.5 rounded-md shadow-sm transition-colors tracking-wide"
+          className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-6 py-2.5 rounded-md shadow-sm transition tracking-wide"
         >
           Start Shopping
         </Link>

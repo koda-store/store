@@ -12,6 +12,11 @@ export default function Navbar() {
   const wishlist = usewishLists();
   const GOTO = useNavigate();
 
+  const [themes , setThemes] = useState('light');
+  useEffect(() => {
+    document.body.className = themes
+  },[themes])
+
 
   useEffect(() => {
     if (!wishlist.loading) {
@@ -68,7 +73,7 @@ export default function Navbar() {
             <button className="text-gray-500 cursor-pointer hover:text-blue-600 transition">
               <Search size={19} />
             </button>
-            <button className="text-gray-500 cursor-pointer hover:text-blue-600 transition">
+            <button onClick={() => setThemes(prev => prev === 'light'? 'dark':'light')} className="text-gray-500 cursor-pointer hover:text-blue-600 transition">
               <Moon size={19} />
             </button>
             <button onClick={() => GOTO('/wishlist')} className="relative cursor-pointer text-gray-500 hover:text-red-500 transition">

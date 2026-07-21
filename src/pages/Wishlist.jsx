@@ -83,7 +83,7 @@ function Wishlist() {
   };
 
   return (
-    <div className="min-h-screen mt-16 bg-gradient-to-b from-gray-50 to-white dark:from-slate-950 dark:to-slate-900 transition-colors">
+    <div className="min-h-screen mt-8 bg-gray-50 dark:bg-gray-950 transition">
       <div className="max-w-7xl mx-auto px-5 py-10">
 
         {/* Header */}

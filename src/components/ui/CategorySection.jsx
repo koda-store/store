@@ -43,7 +43,7 @@ const Category = () => {
                         <div key={index}>
                             <button
                                 onClick={() => GoTo(`shop/${category.h3}`)}
-                                className="w-full cursor-pointer rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-lg hover:border-blue-600 transition-all duration-300 flex flex-col items-center py-10 px-8"
+                                className="w-full cursor-pointer rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-lg hover:border-blue-600 transition flex flex-col items-center py-10 px-8"
                             >
                                 <div className="mb-4 rounded-xl bg-blue-100 dark:bg-blue-500/20 p-4 text-blue-700 dark:text-blue-400">
                                     {category.icon}

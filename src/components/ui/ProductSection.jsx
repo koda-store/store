@@ -36,7 +36,7 @@ const ProductSection = ({ products }) => {
 
                     <CircleArrowRight
                         size={18}
-                        className="transition-transform duration-200 group-hover:translate-x-1"
+                        className="transition group-hover:translate-x-1"
                     />
                 </Link>
             </div>

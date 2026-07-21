@@ -40,7 +40,6 @@ const Card = ({ product }) => {
 
     const dispatch = useDispatch()
     const add_To_wishList = async (product) => {
-        console.log(product._id)
         try {
             setLoading(product._id);
 
@@ -59,14 +58,14 @@ const Card = ({ product }) => {
         }
     };
     return (
-        <div className="bg-white dark:bg-gray-900 cursor-pointer relative rounded-2xl shadow-md dark:shadow-black/30 overflow-hidden hover:shadow-xl transition-all duration-300 group border border-gray-100 dark:border-gray-800">
+        <div className="bg-white dark:bg-gray-900 cursor-pointer relative rounded-2xl shadow-md dark:shadow-black/30 overflow-hidden hover:shadow-xl transition group border border-gray-100 dark:border-gray-800">
             {/* Image */}
             <div className="relative p-3">
                 <div className="overflow-hidden rounded-t-xl">
                     <img
                         src={product.images[0].url}
                         alt={product.name}
-                        className="w-full h-44 rounded-t-xl object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-44 rounded-t-xl object-cover group-hover:scale-105 transition"
                     />
                 </div>
 
@@ -86,7 +85,7 @@ const Card = ({ product }) => {
                     ) : (
                         <Heart
                             size={20}
-                            className={`transition-colors ${isWishlist
+                            className={`transition ${isWishlist
                                     ? "fill-red-500 text-red-500"
                                     : "text-gray-600 dark:text-gray-300 hover:text-red-500"
                                 }`}
