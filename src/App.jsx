@@ -9,6 +9,8 @@ import Carts from './pages/Carts'
 import Wishlist from './pages/Wishlist'
 import Login from './pages/Login'
 import Footer from './components/Footer'
+import PrivateRoute from './components/ui/PrivateRoute'
+import GustOnly from './components/ui/GustOnly'
 
 
 function App() {
@@ -26,9 +28,9 @@ function App() {
           <Route path={'/product/:id'} element={<Product />} />
           <Route path={'/shop/product/:id'} element={<Product />} />
           <Route path={'/shop/:category/product/:id'} element={<Product />} />
-          <Route path={'/cart'} element={<Carts />} />
-          <Route path={'/wishlist'} element={<Wishlist />} />
-          <Route path={'/login'} element={<Login />} />
+          <Route path={'/cart'} element={<PrivateRoute><Carts /></PrivateRoute>} />
+          <Route path={'/wishlist'} element={<PrivateRoute><Wishlist /></PrivateRoute>} />
+          <Route path={'/login'} element={<GustOnly><Login /></GustOnly>} />
         </Routes>
       </main>
       <footer>
