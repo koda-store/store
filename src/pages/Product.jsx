@@ -4,7 +4,7 @@ import useProducts from '../redux/useProduct'
 import { Heart, LoaderCircle, Minus, Plus, ShoppingCart, Star, Trash, Trash2Icon, UserRound } from 'lucide-react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton ,{SkeletonTheme} from 'react-loading-skeleton'
 import { useCart } from '../context/CartContext'
 import {
     getWishlist,
@@ -18,6 +18,7 @@ import { callWishList } from '../redux/callApi'
 import { useDispatch } from 'react-redux'
 
 const Product = () => {
+    const [isDark,] = useState(localStorage.getItem('themes') === 'dark' || false)
     const [amount, setAmount] = useState(1);
     const { id } = useParams()
     const { products, loading } = useProducts()
@@ -38,7 +39,7 @@ const Product = () => {
         if (rate !== 0 && Review.trim() !== "") {
             try {
                 const token = localStorage.getItem("dashboard-token") ||
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWZjYjczNDQzMTFkYzY1YTdkZDU0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDczNTQ0NywiZXhwIjoxNzg1MTY3NDQ3fQ.DRKuKNRqqmCEO-PMus55IPVVhwJgxI5huAGwW8FkC8Y";
                 setLoadingReview(true)
                 const res = await axios.post(
                     `https://e-commerce-api-3wara.vercel.app/products/${currentProduct._id}/reviews`,
@@ -70,8 +71,8 @@ const Product = () => {
         try {
             setLoadingReviewDelete(true)
 
-             const token = localStorage.getItem("dashboard-token") ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
+            const token = localStorage.getItem("dashboard-token") ||
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
             const res = await axios.delete(`https://e-commerce-api-3wara.vercel.app/products/${productId}/reviews/${reviewId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -133,10 +134,45 @@ const Product = () => {
             <section className="pt-15 pb-10 relative bg-white dark:bg-gray-950 transition">
                 <div className='container'>
                     {loading ? (
-                        <div className='grid lg:grid-cols-2 gap-5'>
-                            <Skeleton height={350} />
-                            <Skeleton height={350} />
-                        </div>
+                            <SkeletonTheme
+                                baseColor={isDark ? "#1f2937" : "#ebebeb"}
+                                highlightColor={isDark ? "#374151" : "#f5f5f5"}
+                            >
+                                <div className="grid lg:grid-cols-2 gap-8">
+                                    {/* Images */}
+                                    <div>
+                                        <Skeleton height={420} borderRadius={16} />
+
+                                        <div className="flex gap-3 mt-4">
+                                            {[...Array(4)].map((_, index) => (
+                                                <Skeleton
+                                                    key={index}
+                                                    width={80}
+                                                    height={80}
+                                                    borderRadius={12}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Details */}
+                                    <div>
+                                        <Skeleton height={36} width="70%" />
+
+                                        <div className="flex gap-2 mt-4">
+                                            {[...Array(5)].map((_, index) => (
+                                                <Skeleton key={index} circle width={18} height={18} />
+                                            ))}
+                                        </div>
+
+                                        <Skeleton width={120} height={28} className="mt-5" />
+
+                                        <Skeleton count={3} className="mt-5" />
+
+                                        <Skeleton height={45} width={170} className="mt-8" />
+                                    </div>
+                                </div>
+                            </SkeletonTheme>
                     ) : (
                         <div className="grid lg:grid-cols-2 gap-5">
                             <div>
@@ -270,7 +306,7 @@ const Product = () => {
                                         <button
                                             onClick={() => addToCart(currentProduct)}
                                             disabled={actionLoading}
-                                            className="flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+                                            className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
                                         >
                                             {actionLoading ? (
                                                 <>

@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { add_To_WishList } from "../../services/wishlistService";
 import { callWishList } from "../../redux/callApi";
 
-const Card = ({ product }) => {
+const Card = ({ product,wishlist }) => {
     const { addItem, actionLoading } = useCart();
     const [selectProduct, setSelectProduct] = useState(null)
     const addToCart = async (e) => {
@@ -24,7 +24,6 @@ const Card = ({ product }) => {
     }
 
     // wishlist
-    const wishlist = usewishLists();
     const [Wloading, setLoading] = useState(null);
     const [isWishlist, setIsWishList] = useState(false)
 

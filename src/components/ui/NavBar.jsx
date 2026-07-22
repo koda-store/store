@@ -12,8 +12,9 @@ export default function Navbar() {
   const wishlist = usewishLists();
   const GOTO = useNavigate();
 
-  const [themes , setThemes] = useState('light');
+  const [themes , setThemes] = useState(localStorage.getItem('themes') || 'light');
   useEffect(() => {
+    localStorage.setItem('themes' , themes)
     document.body.className = themes
   },[themes])
 
