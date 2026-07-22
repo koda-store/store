@@ -14,6 +14,9 @@ import Wishlist from "../pages/Wishlist";
 import NotFound from "../pages/NotFound";
 import Shop from '../pages/Shop'
 import Product from '../pages/Product'
+import ProtectedRoute from "../components/ui/ProtectedRoute";
+import GustOnly from "../components/ui/GustOnly";
+
 
 const router = createBrowserRouter([
   {
@@ -46,19 +49,19 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element: <Carts />,
+        element: <ProtectedRoute><Carts /></ProtectedRoute>,
       },
       {
         path: "login",
-        element: <Login />,
+        element: <GustOnly><Login /></GustOnly> ,
       },
       {
         path: "checkout",
-        element: <Checkout />,
+        element: <ProtectedRoute><Checkout /></ProtectedRoute>,
       },
       {
         path: "orders",
-        element: <Orders />,
+        element: <ProtectedRoute><Orders /></ProtectedRoute> ,
       },
       {
         path: "orders/:id",
@@ -66,11 +69,11 @@ const router = createBrowserRouter([
       },
       {
         path: "ordersuccess",
-        element: <OrderSuccess />,
+        element: <ProtectedRoute><OrderSuccess /></ProtectedRoute> ,
       },
       {
         path: "wishlist",
-        element: <Wishlist />,
+        element: <ProtectedRoute><Wishlist /></ProtectedRoute> ,
       },
       {
         path: "*",
