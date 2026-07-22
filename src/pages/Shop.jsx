@@ -4,9 +4,12 @@ import useProducts from '../redux/useProduct';
 import Card from '../components/ui/Card';
 import SkeletonDemo from '../components/ui/Skeleton';
 import { useParams } from 'react-router-dom';
+import usewishLists from '../redux/useWishList';
 
 const Shop = () => {
     const products = useProducts();
+    const wishlists = usewishLists();
+
     const par = useParams();
 
     const [category, setCategory] = useState(par.category? par.category: 'all');
@@ -169,7 +172,7 @@ ${openFilter ? "max-md:left-0" : "max-md:-left-full"}`}>
                                     filteredProducts.length !== 0 ? (
                                         Array.from(filteredProducts).map((product) => (
                                             <div key={product._id}>
-                                                <Card product={product} />
+                                                <Card product={product} wishlist={wishlists} />
                                             </div>
                                         ))
                                     ) : (

@@ -70,6 +70,7 @@ function Wishlist() {
 
       if (res.success) {
         setProducts([]);
+        dispatch(callWishList())
         toast.success("Wishlist cleared successfully");
       } else {
         toast.error("Something went wrong");

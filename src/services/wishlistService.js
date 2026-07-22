@@ -34,8 +34,8 @@ export const addToCart = async (productId) => {
   return response.data;
 };
 export const add_To_WishList = async (productId) => {
-  const token = localStorage.getItem("dashboard-token") ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
+  const token = localStorage.getItem("dashboard-token") || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWZjYjczNDQzMTFkYzY1YTdkZDU0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDczNTQ0NywiZXhwIjoxNzg1MTY3NDQ3fQ.DRKuKNRqqmCEO-PMus55IPVVhwJgxI5huAGwW8FkC8Y";
+
   const res = await axios.post(
     `https://e-commerce-api-3wara.vercel.app/wishlists/add/${productId}`,
     null,

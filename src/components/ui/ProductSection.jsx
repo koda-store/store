@@ -5,7 +5,7 @@ import SkeletonDemo from "./Skeleton"
 import { CircleArrowRight } from "lucide-react"
 
 
-const ProductSection = ({ products }) => {
+const ProductSection = ({ products , wishlists }) => {
     return (
         <div className="container py-2.5">
             <HeadSec
@@ -21,7 +21,7 @@ const ProductSection = ({ products }) => {
                         .slice(0, 4)
                         .map((product) => (
                             <div key={product._id}>
-                                <Card product={product} />
+                                <Card product={product} wishlist={wishlists} />
                             </div>
                         ))
                 )}

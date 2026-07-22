@@ -8,7 +8,7 @@ export const api = axios.create({
 });
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("dashboard-token") ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDIxMjU3MywiZXhwIjoxNzg0NjQ0NTczfQ.6BukOZHxtSuRxbCubJwkVayLEvesQSgQjRmKOKJKh_s";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWZjYjczNDQzMTFkYzY1YTdkZDU0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDczNTQ0NywiZXhwIjoxNzg1MTY3NDQ3fQ.DRKuKNRqqmCEO-PMus55IPVVhwJgxI5huAGwW8FkC8Y";
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
     // config.headers.Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTc5Zjg1YmFmOTJiNzU2ZDBiZmFmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NDE5ODk4NSwiZXhwIjoxNzg0NjMwOTg1fQ.HraUis0K9FZA5z6PWHifJ8jtvzkrvlIBY5IkH6YBI5Q";

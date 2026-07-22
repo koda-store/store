@@ -4,21 +4,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const SkeletonDemo = () => {
   const [isDark, setIsDark] = useState(
-    document.body.classList.contains("dark")
+    localStorage.getItem('themes') === 'dark'
   );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.body.classList.contains("dark"));
-    });
-
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <SkeletonTheme
