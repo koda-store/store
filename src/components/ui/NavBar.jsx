@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Search, Moon, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
+import { Search, Moon, Sun, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import usewishLists from "../../redux/useWishList";
 
@@ -12,11 +12,11 @@ export default function Navbar() {
   const wishlist = usewishLists();
   const GOTO = useNavigate();
 
-  const [themes , setThemes] = useState(localStorage.getItem('themes') || 'light');
+  const [themes, setThemes] = useState(localStorage.getItem('themes') || 'light');
   useEffect(() => {
-    localStorage.setItem('themes' , themes)
+    localStorage.setItem('themes', themes)
     document.body.className = themes
-  },[themes])
+  }, [themes])
 
 
   useEffect(() => {
@@ -31,30 +31,46 @@ export default function Navbar() {
     }`;
 
   const mobileLinkClass = ({ isActive }) =>
-    `block px-4 py-2 rounded-lg text-sm font-medium transition ${isActive
+    `block px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive
       ? "bg-blue-600 text-white"
-      : "text-gray-700 hover:text-blue-600"
+      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400"
     }`;
 
   return (
 
-    <nav className="fixed top-0 left-0 w-full px-4 sm:px-8 py-3 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100 z-50">
+    <nav className="fixed top-0 left-0 w-full px-4 sm:px-8 py-3 bg-white/95 dark:bg-gray-950 backdrop-blur-sm shadow-sm dark:shadow-black/30 border-b border-gray-100 dark:border-slate-700 z-50 transition-colors duration-300">
       <div className="w-full flex items-center justify-between">
 
-        <div className="flex items-center gap-2">
-          <div className="text-blue-800 flex items-center justify-center mr-1">
-            <span className="text-2xl font-black italic">K</span>
+        <div className="flex items-center gap-2 cursor-pointer select-none">
+          <div className="flex items-center justify-center mr-1 text-blue-700 dark:text-blue-400 transition-colors duration-300">
+            <span className="text-3xl font-black italic">K</span>
           </div>
-          <div className="flex flex-col items-start justify-center leading-none">
-            <span className="font-extrabold text-gray-900 text-[15px] tracking-wide">KODA</span>
-            <span className="font-extrabold text-gray-900 text-[15px] tracking-wide mt-[2px]">STORE</span>
-            <span className="text-[7px] font-bold tracking-[0.2em] text-gray-400 mt-1">
-              ONLINE STORE
+
+          <div className="flex flex-col leading-none">
+            <span className="text-[15px] font-extrabold tracking-wide text-gray-900 dark:text-white transition-colors duration-300">
+              KODA
+            </span>
+
+            <span className="mt-[2px] text-[15px] font-extrabold tracking-wide text-gray-900 dark:text-white transition-colors duration-300">
+              STORE
+            </span>
+
+            <span className="mt-1 text-[8px] font-semibold tracking-[0.25em] uppercase text-gray-400 dark:text-gray-500 transition-colors duration-300">
+              Online Store
             </span>
           </div>
         </div>
 
-        <div className="hidden md:flex items-center bg-gray-50 border border-gray-200 rounded-full p-1">
+        <div
+          className="
+    hidden md:flex items-center
+    bg-gray-50 dark:bg-gray-800/70
+    border border-gray-200 dark:border-gray-700
+    rounded-full p-1
+    shadow-sm
+    transition
+  "
+        >
           <NavLink to="/" end className={linkClass}>
             Home
           </NavLink>
@@ -74,7 +90,7 @@ export default function Navbar() {
             <button className="text-gray-500 cursor-pointer hover:text-blue-600 transition">
               <Search size={19} />
             </button>
-            <button onClick={() => setThemes(prev => prev === 'light'? 'dark':'light')} className="text-gray-500 cursor-pointer hover:text-blue-600 transition">
+            <button onClick={() => setThemes(prev => prev === 'light' ? 'dark' : 'light')} className="text-gray-500 cursor-pointer hover:text-blue-600 transition">
               <Moon size={19} />
             </button>
             <button onClick={() => GOTO('/wishlist')} className="relative cursor-pointer text-gray-500 hover:text-red-500 transition">
@@ -95,14 +111,16 @@ export default function Navbar() {
               )}
             </NavLink>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200 hover:bg-gray-100 transition">
-            <User size={16} className="text-gray-600" />
-            <span className="text-sm font-medium text-gray-700">CUSTOMER</span>
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-700 transition-all duration-300">
+            <User size={16} className="text-gray-600 dark:text-gray-300" />
+            <span className="text-sm font-medium text-gray-700 dark:text-white">
+              CUSTOMER
+            </span>
           </button>
         </div>
 
         <button
-          className="md:hidden text-gray-700"
+          className="md:hidden text-gray-700 dark:text-gray-500 cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -111,37 +129,74 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white mt-0 border-t border-gray-100 shadow-lg px-4 py-3 flex flex-col gap-1 z-50">
+        <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-700 shadow-lg px-4 py-4 flex flex-col gap-2 z-50 transition-all duration-300">
           <NavLink to="/" end className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
             Home
           </NavLink>
+
           <NavLink to="/shop" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
             Shop
           </NavLink>
+
           <NavLink to="/orders" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
             My Orders
           </NavLink>
+
           <NavLink to="/wishlist" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
             Wishlist
           </NavLink>
 
-          <div className="flex items-center justify-between px-4 py-3 mt-2 border-t border-gray-100">
-            <div className="flex items-center gap-4">
-              <button className="text-gray-500"><Search size={19} /></button>
-              <button className="text-gray-500"><Moon size={19} /></button>
-              <button className="text-gray-500"><Heart size={19} /></button>
-              <NavLink to="/cart" className="relative text-gray-500" onClick={() => setMenuOpen(false)}>
+          <div className="flex items-center justify-between px-2 py-3 mt-2 border-t border-gray-100 dark:border-slate-700">
+            <div className="flex items-center gap-2">
+
+              <button className="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 transition-all">
+                <Search size={19} />
+              </button>
+
+              <button
+                onClick={() => setThemes(prev => (prev === "light" ? "dark" : "light"))}
+                className="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
+              >
+                {themes === "light" ? <Moon size={19} /> : <Sun size={19} />}
+              </button>
+
+              <button
+                onClick={() => {
+                  GOTO("/wishlist");
+                  setMenuOpen(false);
+                }}
+                className="relative p-2 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-red-500 transition-all"
+              >
+                <Heart size={19} />
+
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                    {wishlistCount > 99 ? "99+" : wishlistCount}
+                  </span>
+                )}
+              </button>
+
+              <NavLink
+                to="/cart"
+                onClick={() => setMenuOpen(false)}
+                className="relative p-2 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
+              >
                 <ShoppingCart size={19} />
+
                 {itemsCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
-                    {itemsCount > 9 ? "9+" : itemsCount}
+                  <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-bold text-white">
+                    {itemsCount > 99 ? "99+" : itemsCount}
                   </span>
                 )}
               </NavLink>
+
             </div>
-            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200">
-              <User size={14} className="text-gray-600" />
-              <span className="text-xs font-medium text-gray-700">CUSTOMER</span>
+
+            <button className="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+              <User size={14} className="text-gray-600 dark:text-gray-300" />
+              <span className="text-xs font-medium text-gray-700 dark:text-white">
+                CUSTOMER
+              </span>
             </button>
           </div>
         </div>
