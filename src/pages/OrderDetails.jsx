@@ -72,7 +72,7 @@ function OrderDetails() {
     };
     if (loading) {
         return (
-            <div className="flex justify-center items-center bg-slate-100 h-[70vh]">
+            <div className="flex justify-center items-center bg-slate-100 h-[70vh] dark:bg-slate-800">
                 <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
             </div>
         );
@@ -88,30 +88,31 @@ function OrderDetails() {
 
     return (
 
-        <div className="min-h-screen bg-slate-100 ">OrderDetails Page
+        <div className="min-h-screen bg-slate-100 dark:bg-slate-800 ">
+            
             <div className="mx-auto max-w-4xl space-y-4">
-                {/* <h3>OrderDetails</h3> */}
+                <h3 >OrderDetails</h3>
                 <div className="flex justify-between items-center">
                     <div>
-                        <h3 className="text-slate-800 font-bold text-2xl py-2">Order Details</h3>
+                        <h3 className="text-slate-800 font-bold text-2xl py-2 dark:text-slate-200">Order Details</h3>
                         <p className="text-slate-500">Order #{order?._id.slice(-6)}</p>
                    </div>
-                    <div className={`px-3 py-1 rounded-full text-xs font-medium 
+                    <div className={`px-3 py-1 rounded-full text-xs font-medium dark:bg-slate-400
                                                 ${getStatusClass(order?.status)}`}>
                         {order?.status?.charAt(0).toUpperCase() + order?.status?.slice(1)}
                    </div>
                 </div>
 
                 {/* order progress */}
-                <div className="bg-white rounded-lg border border-slate-200 p-4 ">
-                    <h2 className="text-slate-700 font-semibold mb-4 text-lg">
+                <div className="bg-white rounded-lg border border-slate-200 p-4 dark:bg-slate-700 dark:border-slate-600">
+                    <h2 className="text-slate-700 font-semibold mb-4 text-lg dark:text-slate-200 ">
                         Order Progress
                     </h2>
 
                     <div className="relative">
 
                         {/* Progress Line */}
-                        <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200">
+                        <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-400">
                             <div
                                 className="h-full bg-indigo-600 transition-all duration-500"
                                 style={{
@@ -158,8 +159,8 @@ function OrderDetails() {
 
 
                 {/* order descreption */}
-                <div className="w-full bg-white border border-slate-200 rounded rounded-lg p-6 ">
-                    <p className="flex gap-2 text-slate-800 text-lg font-semibold pb-2">
+                <div className="w-full bg-white border border-slate-200 rounded rounded-lg p-6 dark:bg-slate-700 dark:border-slate-600 ">
+                    <p className="flex gap-2 text-slate-800 text-lg font-semibold pb-2 dark:text-slate-200">
                         <span><Package size={18} className="text-indigo-600" /> </span>
                         Items</p>
                     {order?.items.map((item) => (
@@ -171,7 +172,7 @@ function OrderDetails() {
                                     <p className=" px-2 text-sm text-slate-400 ">Qty : {item.quantity} × {item.price} EGP</p>
                                 </div>                               
                             </div>
-                            <span className="flex justify-center items-center text-slate-600 font-bold">{item.quantity * item.price} EGP</span>
+                            <span className="flex justify-center items-center text-slate-600 font-bold dark:text-slate-200">{item.quantity * item.price} EGP</span>
                         </div>
                     ))}
                     
@@ -179,31 +180,33 @@ function OrderDetails() {
                    
                 {/* shipping&payment */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-white border border-slate-200 rounded rounded-lg p-6 ">
+                    <div className="bg-white border border-slate-200 rounded rounded-lg p-6 
+                        dark:bg-slate-700 dark:border-slate-600  ">
                         
-                        <h4 className="flex gap-2 text-slate-800 font-bold">
+                        <h4 className="flex gap-2 text-slate-800 font-bold dark:text-slate-200">
                             <span> <MapPin size={18} className="text-indigo-600" /> </span>
                             Shipping Address</h4>
-                        <p className="text-slate-400 text-sm ">{order?.shippingAddress.fullName}</p>
-                        <p className="text-slate-400 text-sm ">{order?.shippingAddress.city}</p>
-                        <p className="text-slate-400 text-sm ">{order?.shippingAddress.country}</p>
-                        <p className="text-slate-400 text-sm ">{order?.shippingAddress.phone}</p>
+                        <p className="text-slate-400 text-sm font-bold dark:text-slate-200 ">{order?.shippingAddress.fullName}</p>
+                        <p className="text-slate-400 text-sm font-bold dark:text-slate-200 ">{order?.shippingAddress.city}</p>
+                        <p className="text-slate-400 text-sm  font-bold dark:text-slate-200">{order?.shippingAddress.country}</p>
+                        <p className="text-slate-400 text-sm font-bold dark:text-slate-200 ">{order?.shippingAddress.phone}</p>
                     </div>
 
-                    <div className="bg-white border border-slate-200 rounded rounded-lg p-6">
+                    <div className="bg-white border border-slate-200 rounded rounded-lg p-6 
+                         dark:bg-slate-700 dark:border-slate-600">
                         
-                        <h4 className="flex gap-2 text-slate-800 font-bold">
+                        <h4 className="flex gap-2 text-slate-800 font-bold dark:text-slate-200">
                             <span> <CreditCard size={18} className="text-indigo-600" /> </span>
                             Payment
                         </h4>
-                        <p className="text-slate-400 text-sm pb-2 ">{order?.paymentMethod?.toUpperCase()}</p>
+                        <p className="text-slate-400 text-sm pb-2 font-bold dark:text-slate-200 ">{order?.paymentMethod?.toUpperCase()}</p>
 
-                        <div className="border-t border-slate-200 ">
+                        <div className="border-t border-slate-200 dark:border-slate-400 ">
                             <div className="flex justify-between">
-                                <span className="text-bold text-slate-600 font-bold pt-2">Total</span>
-                                <span className="flex justify-center items-center text-slate-600 font-bold">{order?.totalPrice} EGP</span>
+                                <span className="text-bold text-slate-600 font-bold pt-2  dark:text-slate-200">Total</span>
+                                <span className="flex justify-center items-center  font-bold text-indigo-600  dark:text-indigo-500">{order?.totalPrice} EGP</span>
                             </div>
-                            <p className="text-slate-400 text-sm ">Placed on{" "} {new Date(order?.createdAt).toLocaleDateString()}</p>
+                            <p className="text-slate-400 text-sm  dark:text-slate-200 ">Placed on{" "} {new Date(order?.createdAt).toLocaleDateString()}</p>
                         </div>
                     </div>
                 </div>
