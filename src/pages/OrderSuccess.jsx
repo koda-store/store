@@ -5,24 +5,24 @@ import { NavLink } from "react-router-dom";
 function OrderSuccess() {
     return (
 
-        <div className="min-h-[60vh] bg-slate-100 ">OrderSuccess Page
+        <div className="min-h-[60vh] bg-slate-100 dark:bg-slate-800">OrderSuccess Page
             <div className=" flex items-center justify-center px-4 pt-[40px]">
                 {/* <h3>OrderSuccess</h3> */}
                 <div className="flex flex-col text-center space-y-4 ">
-                    <div className="mx-auto w-20 h-22 rounded-full bg-green-100 flex items-center justify-center">
+                    <div className="mx-auto w-20 h-22 rounded-full bg-green-100 flex items-center justify-center dark:bg-green-200 ">
                         <CircleCheckBig 
                             size={55}
-                            className="text-green-600"
+                            className="text-green-600 "
                             strokeWidth={1.5}
                         />
                     </div>
-                    <div className="text-slate-800 font-bold text-xl">
+                    <div className="text-slate-800 font-bold text-xl dark:text-slate-200">
                         Order Placed Successfully !
                     </div>
-                    <div className="text-slate-500 text-sm ">
+                    <div className="text-slate-500 text-sm dark:text-slate-300 ">
                         Thank you for your Purchase .Your Order has been confirmed .
                     </div>
-                    <div className="text-slate-500 text-sm ">
+                    <div className="text-slate-500 text-sm dark:text-slate-300 ">
                         Order ID : # 123456
                     </div>
 
